@@ -1,5 +1,7 @@
 # slskd Card for Home Assistant
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+
 A custom Lovelace card for searching and downloading music from Soulseek via [slskd](https://github.com/slskd/slskd), using the [slskd Home Assistant integration](https://github.com/kaymyst/slskd-homeassistant).
 
 ## Features
@@ -16,13 +18,25 @@ Install the [slskd Home Assistant integration](https://github.com/kaymyst/slskd-
 
 ## Installation
 
+### HACS (recommended)
+
+1. Open HACS in your Home Assistant instance
+2. Go to **Frontend** → click the three dots menu → **Custom repositories**
+3. Add this repository URL with category **Dashboard**
+4. Click **Install**
+5. Restart Home Assistant
+
+### Manual
+
 1. Copy `slskd-card.js` to your Home Assistant `config/www/` directory
 2. Add the resource in **Settings → Dashboards → Resources**:
    - URL: `/local/slskd-card.js`
    - Type: JavaScript Module
-3. Add the card to your dashboard
+3. Restart Home Assistant
 
 ## Configuration
+
+Add the card to your dashboard with the following YAML:
 
 ```yaml
 type: custom:slskd-card
