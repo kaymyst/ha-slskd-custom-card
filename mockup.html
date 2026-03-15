@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>slskd Card — Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* HA-aligned dark palette with warm accent */
+    --card-bg: #1c1c1e;
+    --surface: #2c2c2e;
+    --surface-hover: #3a3a3c;
+    --border: #3a3a3c;
+    --text-primary: #e5e5e7;
+    --text-secondary: #8e8e93;
+    --text-tertiary: #636366;
+    --accent: #d4a54a;
+    --accent-dim: rgba(212, 165, 74, 0.12);
+    --accent-glow: rgba(212, 165, 74, 0.25);
+    --success: #30d158;
+    --success-dim: rgba(48, 209, 88, 0.12);
+    --progress-bg: rgba(212, 165, 74, 0.08);
+    --danger: #ff453a;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111113;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  .card-container {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  /* ── Card Shell ── */
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Header ── */
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-header svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+  }
+
+  .connection-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    margin-left: auto;
+    box-shadow: 0 0 6px rgba(48, 209, 88, 0.5);
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ── Search Section ── */
+  .search-section {
+    padding: 16px 20px;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .search-bar:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+
+  .search-bar svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-tertiary);
+    margin-left: 14px;
+    flex-shrink: 0;
+  }
+
+  .search-bar input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 12px 12px;
+  }
+
+  .search-bar input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  .search-btn {
+    background: var(--accent);
+    border: none;
+    color: #1c1c1e;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 12px 18px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.15s;
+  }
+
+  .search-btn:hover {
+    background: #e0b35c;
+  }
+
+  /* ── Status Bar ── */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px;
+    margin-bottom: 4px;
+  }
+
+  .status-bar .label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
+
+  .status-bar .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .status-bar .count {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Results List ── */
+  .results-list {
+    padding: 8px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s;
+    position: relative;
+  }
+
+  .result-item:hover {
+    background: var(--surface);
+  }
+
+  .result-item:hover .dl-btn {
+    opacity: 1;
+  }
+
+  .result-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    width: 16px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .result-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .result-filename {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+
+  .result-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  .result-meta .sep {
+    color: var(--border);
+  }
+
+  .result-meta .user {
+    color: var(--text-secondary);
+  }
+
+  .dl-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .dl-btn:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .dl-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 20px;
+  }
+
+  /* ── Download Status ── */
+  .download-section {
+    padding: 12px 20px 16px;
+  }
+
+  .download-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .download-header .label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
+
+  .download-header .status-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+
+  .download-header .status-chip.in-progress {
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .download-header .status-chip.completed {
+    color: var(--success);
+    background: var(--success-dim);
+  }
+
+  .download-track {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+  }
+
+  .download-filename {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 8px;
+  }
+
+  .progress-bar-container {
+    position: relative;
+    height: 4px;
+    background: var(--progress-bg);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .progress-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #e0b35c);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .progress-bar-fill.completed {
+    background: linear-gradient(90deg, var(--success), #34d65c);
+  }
+
+  .download-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  .download-stats .pct {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .download-stats .pct.completed {
+    color: var(--success);
+  }
+
+  /* ── Empty State ── */
+  .empty-state {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+  }
+
+  .empty-state svg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 10px;
+    opacity: 0.3;
+  }
+
+  /* ── State Toggle (mockup only) ── */
+  .mockup-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .mockup-controls button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .mockup-controls button:hover,
+  .mockup-controls button.active {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .mockup-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  /* ── No results state ── */
+  .no-download {
+    text-align: center;
+    padding: 8px;
+    color: var(--text-tertiary);
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  /* Mobile always show download buttons */
+  @media (hover: none) {
+    .dl-btn {
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="card-container">
+
+  <div class="mockup-label">Mockup — Toggle States</div>
+  <div class="mockup-controls">
+    <button class="active" onclick="showState('results')">With Results</button>
+    <button onclick="showState('empty')">Empty / Idle</button>
+    <button onclick="showState('searching')">Searching</button>
+    <button onclick="showState('few')">Few Results</button>
+    <button onclick="showState('completed')">Download Done</button>
+  </div>
+
+  <!-- ═══ CARD ═══ -->
+  <div class="card" id="card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 12l2 2 4-4"/>
+      </svg>
+      <span class="card-title">slskd</span>
+      <div class="connection-dot" title="Connected"></div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-section">
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search Soulseek…" value="Omeria Percolate" />
+        <button class="search-btn" id="searchBtn">Search</button>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar" id="statusBar">
+      <span class="label">Results</span>
+      <span class="badge" id="statusBadge">Completed</span>
+      <span class="count" id="statusCount">250 found · showing 10</span>
+    </div>
+
+    <!-- Results -->
+    <div class="results-list" id="resultsList">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Divider -->
+    <div class="divider" id="divider"></div>
+
+    <!-- Download Status -->
+    <div class="download-section" id="downloadSection">
+      <div class="download-header">
+        <span class="label">Last Download</span>
+        <span class="status-chip in-progress" id="dlChip">In Progress</span>
+      </div>
+      <div class="download-track">
+        <div class="download-filename" id="dlFilename">Percolate - Omeria (Original Mix) 127.mp3</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="dlProgress" style="width: 47%"></div>
+        </div>
+        <div class="download-stats">
+          <span id="dlUser">Grower8637</span>
+          <span>12.4 MB</span>
+          <span class="pct" id="dlPct">47%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const MOCK_RESULTS = [
+  { file: "Percolate - Omeria (Original Mix) 127.mp3", user: "Grower8637", bitrate: "320", size: "12.4 MB" },
+  { file: "Omeria - Appetizer (Original Mix).mp3", user: "Amarii88", bitrate: "320", size: "14.2 MB" },
+  { file: "Omeria - Percolate (Original Mix).mp3", user: "Amarii88", bitrate: "320", size: "13.8 MB" },
+  { file: "Omeria - El Bala.mp3", user: "Amarii88", bitrate: "320", size: "13.4 MB" },
+  { file: "Omeria - Concentrate (Original Mix).mp3", user: "Amarii88", bitrate: "320", size: "13.1 MB" },
+  { file: "Jonasclean, Omeria - Dawn (Original Mix).mp3", user: "Amarii88", bitrate: "320", size: "12.8 MB" },
+  { file: "Omeria - Romance (Original Mix).mp3", user: "Amarii88", bitrate: "320", size: "11.7 MB" },
+  { file: "Omeria - The Floor (Original Mix).mp3", user: "Amarii88", bitrate: "320", size: "9.0 MB" },
+  { file: "Omeria - Percolate (Dub Mix).mp3", user: "djvault99", bitrate: "320", size: "11.2 MB" },
+  { file: "Omeria - Concentrate (Dub Mix).mp3", user: "djvault99", bitrate: "256", size: "9.8 MB" },
+];
+
+const FEW_RESULTS = MOCK_RESULTS.slice(0, 3);
+
+function renderResults(items) {
+  const list = document.getElementById('resultsList');
+  if (items.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
+        </svg>
+        <div>Search for tracks to get started</div>
+      </div>`;
+    return;
+  }
+  list.innerHTML = items.map((r, i) => `
+    <div class="result-item" onclick="simulateDownload(${i})">
+      <span class="result-index">${i + 1}</span>
+      <div class="result-info">
+        <div class="result-filename" title="${r.file}">${r.file}</div>
+        <div class="result-meta">
+          <span class="user">${r.user}</span>
+          <span class="sep">·</span>
+          <span>${r.bitrate} kbps</span>
+          <span class="sep">·</span>
+          <span>${r.size}</span>
+        </div>
+      </div>
+      <button class="dl-btn" title="Download">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function simulateDownload(index) {
+  const items = document.querySelectorAll('.result-item');
+  const r = MOCK_RESULTS[index] || FEW_RESULTS[index];
+  if (!r) return;
+
+  document.getElementById('dlFilename').textContent = r.file;
+  document.getElementById('dlUser').textContent = r.user;
+  document.getElementById('dlChip').textContent = 'In Progress';
+  document.getElementById('dlChip').className = 'status-chip in-progress';
+  document.getElementById('dlProgress').className = 'progress-bar-fill';
+  document.getElementById('dlPct').className = 'pct';
+
+  let pct = 0;
+  const interval = setInterval(() => {
+    pct += Math.random() * 15;
+    if (pct >= 100) {
+      pct = 100;
+      clearInterval(interval);
+      document.getElementById('dlChip').textContent = 'Completed';
+      document.getElementById('dlChip').className = 'status-chip completed';
+      document.getElementById('dlProgress').className = 'progress-bar-fill completed';
+      document.getElementById('dlPct').className = 'pct completed';
+    }
+    document.getElementById('dlProgress').style.width = pct + '%';
+    document.getElementById('dlPct').textContent = Math.round(pct) + '%';
+  }, 300);
+}
+
+function showState(state) {
+  document.querySelectorAll('.mockup-controls button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const statusBar = document.getElementById('statusBar');
+  const divider = document.getElementById('divider');
+  const dlSection = document.getElementById('downloadSection');
+
+  statusBar.style.display = '';
+  divider.style.display = '';
+  dlSection.style.display = '';
+
+  switch (state) {
+    case 'results':
+      document.getElementById('searchInput').value = 'Omeria Percolate';
+      document.getElementById('statusBadge').textContent = 'Completed';
+      document.getElementById('statusCount').textContent = '250 found · showing 10';
+      renderResults(MOCK_RESULTS);
+      document.getElementById('dlChip').textContent = 'In Progress';
+      document.getElementById('dlChip').className = 'status-chip in-progress';
+      document.getElementById('dlProgress').style.width = '47%';
+      document.getElementById('dlProgress').className = 'progress-bar-fill';
+      document.getElementById('dlPct').textContent = '47%';
+      document.getElementById('dlPct').className = 'pct';
+      document.getElementById('dlFilename').textContent = 'Percolate - Omeria (Original Mix) 127.mp3';
+      break;
+
+    case 'empty':
+      document.getElementById('searchInput').value = '';
+      statusBar.style.display = 'none';
+      renderResults([]);
+      divider.style.display = 'none';
+      dlSection.style.display = 'none';
+      break;
+
+    case 'searching':
+      document.getElementById('searchInput').value = 'Omeria Percolate';
+      document.getElementById('statusBadge').textContent = 'Searching…';
+      document.getElementById('statusCount').textContent = '';
+      renderResults([]);
+      divider.style.display = 'none';
+      dlSection.style.display = 'none';
+      break;
+
+    case 'few':
+      document.getElementById('searchInput').value = 'Rare Track';
+      document.getElementById('statusBadge').textContent = 'Completed';
+      document.getElementById('statusCount').textContent = '3 found · showing 3';
+      renderResults(FEW_RESULTS);
+      document.getElementById('dlChip').textContent = 'In Progress';
+      document.getElementById('dlChip').className = 'status-chip in-progress';
+      document.getElementById('dlProgress').style.width = '12%';
+      document.getElementById('dlProgress').className = 'progress-bar-fill';
+      document.getElementById('dlPct').textContent = '12%';
+      document.getElementById('dlPct').className = 'pct';
+      break;
+
+    case 'completed':
+      document.getElementById('searchInput').value = 'Omeria Percolate';
+      document.getElementById('statusBadge').textContent = 'Completed';
+      document.getElementById('statusCount').textContent = '250 found · showing 10';
+      renderResults(MOCK_RESULTS);
+      document.getElementById('dlChip').textContent = 'Completed';
+      document.getElementById('dlChip').className = 'status-chip completed';
+      document.getElementById('dlProgress').style.width = '100%';
+      document.getElementById('dlProgress').className = 'progress-bar-fill completed';
+      document.getElementById('dlPct').textContent = '100%';
+      document.getElementById('dlPct').className = 'pct completed';
+      document.getElementById('dlFilename').textContent = 'Percolate - Omeria (Original Mix) 127.mp3';
+      break;
+  }
+}
+
+// Initial render
+renderResults(MOCK_RESULTS);
+</script>
+
+</body>
+</html>
