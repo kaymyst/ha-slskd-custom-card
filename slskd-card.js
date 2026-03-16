@@ -103,8 +103,10 @@ class SlskdCard extends LitElement {
   }
 
   _handleConnectionToggle() {
-    const service = this._connectionState ? "disconnect" : "connect";
-    this.hass.callService("slskd", service, {});
+    const service = this._connectionState ? "turn_off" : "turn_on";
+    this.hass.callService("homeassistant", service, {
+      entity_id: this.config.connection_entity,
+    });
   }
 
   // ── Rendering ──

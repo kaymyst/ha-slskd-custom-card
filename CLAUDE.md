@@ -81,7 +81,7 @@ The card is implemented as a Lit-Element Web Component registered as `custom:sls
 type: custom:slskd-card
 search_entity: sensor.slskd_last_search_result_total
 download_entity: sensor.slskd_last_download_status
-connection_entity: binary_sensor.slskd_connected
+connection_entity: switch.slskd_connection
 title: slskd   # optional
 ```
 
