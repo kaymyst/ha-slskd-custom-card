@@ -102,6 +102,11 @@ class SlskdCard extends LitElement {
     });
   }
 
+  _handleConnectionToggle() {
+    const service = this._connectionState ? "disconnect" : "connect";
+    this.hass.callService("slskd", service, {});
+  }
+
   // ── Rendering ──
 
   render() {
@@ -137,8 +142,12 @@ class SlskdCard extends LitElement {
           <path d="M8 12l2 2 4-4"/>
         </svg>
         <span class="card-title">${title}</span>
-        <div class="connection-dot ${connected ? "on" : "off"}"
-             title="${connected ? "Connected" : "Disconnected"}"></div>
+        <button class="connection-btn ${connected ? "on" : "off"}"
+                title="${connected ? "Click to disconnect" : "Click to connect"}"
+                @click="${this._handleConnectionToggle}">
+          <span class="connection-dot"></span>
+          <span class="connection-label">${connected ? "Connected" : "Disconnected"}</span>
+        </button>
       </div>
     `;
   }
@@ -322,22 +331,59 @@ class SlskdCard extends LitElement {
         color: var(--slskd-text);
       }
 
+      .connection-btn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: auto;
+        padding: 4px 9px 4px 7px;
+        border-radius: 20px;
+        border: 1px solid transparent;
+        background: transparent;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 500;
+        transition: background 0.15s, border-color 0.15s;
+      }
+
+      .connection-btn.on {
+        color: var(--slskd-success);
+        border-color: rgba(48, 209, 88, 0.25);
+      }
+
+      .connection-btn.off {
+        color: #ff453a;
+        border-color: rgba(255, 69, 58, 0.25);
+      }
+
+      .connection-btn.on:hover {
+        background: rgba(255, 69, 58, 0.08);
+        border-color: rgba(255, 69, 58, 0.35);
+        color: #ff453a;
+      }
+
+      .connection-btn.off:hover {
+        background: rgba(48, 209, 88, 0.08);
+        border-color: rgba(48, 209, 88, 0.35);
+        color: var(--slskd-success);
+      }
+
       .connection-dot {
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        margin-left: auto;
+        background: currentColor;
+        flex-shrink: 0;
       }
 
-      .connection-dot.on {
-        background: var(--slskd-success);
-        box-shadow: 0 0 6px rgba(48, 209, 88, 0.5);
+      .connection-btn.on .connection-dot {
+        box-shadow: 0 0 5px rgba(48, 209, 88, 0.5);
         animation: pulse-dot 2.5s ease-in-out infinite;
       }
 
-      .connection-dot.off {
-        background: #ff453a;
-        box-shadow: 0 0 6px rgba(255, 69, 58, 0.5);
+      .connection-btn.off .connection-dot {
+        box-shadow: 0 0 5px rgba(255, 69, 58, 0.5);
       }
 
       @keyframes pulse-dot {
