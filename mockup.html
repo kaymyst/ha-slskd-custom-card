@@ -74,14 +74,59 @@
     color: var(--text-primary);
   }
 
+  .connection-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    padding: 4px 9px 4px 7px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .connection-btn.on {
+    color: var(--success);
+    border-color: rgba(48, 209, 88, 0.25);
+  }
+
+  .connection-btn.off {
+    color: var(--danger);
+    border-color: rgba(255, 69, 58, 0.25);
+  }
+
+  .connection-btn.on:hover {
+    background: rgba(255, 69, 58, 0.08);
+    border-color: rgba(255, 69, 58, 0.35);
+    color: var(--danger);
+  }
+
+  .connection-btn.off:hover {
+    background: rgba(48, 209, 88, 0.08);
+    border-color: rgba(48, 209, 88, 0.35);
+    color: var(--success);
+  }
+
   .connection-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--success);
-    margin-left: auto;
-    box-shadow: 0 0 6px rgba(48, 209, 88, 0.5);
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .connection-btn.on .connection-dot {
+    box-shadow: 0 0 5px rgba(48, 209, 88, 0.5);
     animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  .connection-btn.off .connection-dot {
+    box-shadow: 0 0 5px rgba(255, 69, 58, 0.5);
   }
 
   @keyframes pulse-dot {
@@ -474,7 +519,10 @@
         <path d="M8 12l2 2 4-4"/>
       </svg>
       <span class="card-title">slskd</span>
-      <div class="connection-dot" title="Connected"></div>
+      <button class="connection-btn on" id="connBtn" title="Click to disconnect" onclick="toggleConnection()">
+        <span class="connection-dot"></span>
+        <span class="connection-label">Connected</span>
+      </button>
     </div>
 
     <!-- Search -->
@@ -676,6 +724,16 @@ function showState(state) {
       document.getElementById('dlFilename').textContent = 'Percolate - Omeria (Original Mix) 127.mp3';
       break;
   }
+}
+
+function toggleConnection() {
+  const btn = document.getElementById('connBtn');
+  const label = btn.querySelector('.connection-label');
+  const isOn = btn.classList.contains('on');
+  btn.classList.toggle('on', !isOn);
+  btn.classList.toggle('off', isOn);
+  label.textContent = isOn ? 'Disconnected' : 'Connected';
+  btn.title = isOn ? 'Click to connect' : 'Click to disconnect';
 }
 
 // Initial render
