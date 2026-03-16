@@ -218,7 +218,7 @@ class SlskdCard extends LitElement {
                 <div class="result-meta">
                   <span class="user">${r.username}</span>
                   <span class="sep">·</span>
-                  <span>${r.bitrate || ""} kbps</span>
+                  <span>${r.bitrate ? `${r.bitrate} kbps` : r.bit_depth && r.sample_rate ? `${r.bit_depth}/${(r.sample_rate / 1000).toFixed(1)}kHz` : ""}</span>
                   <span class="sep">·</span>
                   <span>${this._formatSize(r.size)}</span>
                 </div>
