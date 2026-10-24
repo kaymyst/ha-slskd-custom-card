@@ -46,6 +46,12 @@ connection_entity: switch.slskd_connection
 title: slskd  # optional, defaults to "slskd"
 ```
 
+If your slskd API key is `readonly`, the integration doesn't create `switch.slskd_connection`. Use the binary sensor instead; the card then shows the connection state without the connect/disconnect toggle:
+
+```yaml
+connection_entity: binary_sensor.slskd_connected
+```
+
 ## Usage
 
 1. Type a search query and click **Search** (or press Enter)
