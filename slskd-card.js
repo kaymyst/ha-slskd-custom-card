@@ -51,6 +51,11 @@ class SlskdCard extends LitElement {
     return entity?.state === "on";
   }
 
+  // A binary_sensor (e.g. with a readonly API key) only shows the state
+  get _connectionToggleable() {
+    return this.config.connection_entity.startsWith("switch.");
+  }
+
   get _searchState() {
     return this.hass?.states?.[this.config.search_entity];
   }
@@ -103,6 +108,7 @@ class SlskdCard extends LitElement {
   }
 
   _handleConnectionToggle() {
+    if (!this._connectionToggleable) return;
     const service = this._connectionState ? "turn_off" : "turn_on";
     this.hass.callService("switch", service, {
       entity_id: this.config.connection_entity,
@@ -136,6 +142,7 @@ class SlskdCard extends LitElement {
 
   _renderHeader() {
     const connected = this._connectionState;
+    const toggleable = this._connectionToggleable;
     const title = this.config.title || "slskd";
     return html`
       <div class="card-header">
@@ -144,7 +151,8 @@ class SlskdCard extends LitElement {
         </svg>
         <span class="card-title">${title}</span>
         <button class="connection-btn ${connected ? "on" : "off"}"
-                title="${connected ? "Click to disconnect" : "Click to connect"}"
+                title="${!toggleable ? "Read-only API key" : connected ? "Click to disconnect" : "Click to connect"}"
+                ?disabled="${!toggleable}"
                 @click="${this._handleConnectionToggle}">
           <span class="connection-dot"></span>
           <span class="connection-label">${connected ? "Connected" : "Disconnected"}</span>
@@ -358,13 +366,17 @@ class SlskdCard extends LitElement {
         border-color: rgba(255, 69, 58, 0.25);
       }
 
-      .connection-btn.on:hover {
+      .connection-btn:disabled {
+        cursor: default;
+      }
+
+      .connection-btn.on:not(:disabled):hover {
         background: rgba(255, 69, 58, 0.08);
         border-color: rgba(255, 69, 58, 0.35);
         color: #ff453a;
       }
 
-      .connection-btn.off:hover {
+      .connection-btn.off:not(:disabled):hover {
         background: rgba(48, 209, 88, 0.08);
         border-color: rgba(48, 209, 88, 0.35);
         color: var(--slskd-success);

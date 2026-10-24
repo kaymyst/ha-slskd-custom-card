@@ -48,7 +48,8 @@ The card is implemented as a Lit-Element Web Component registered as `custom:sls
 - `getCardSize()` — Returns `4` (HA layout hint)
 
 **Computed Getters** (prefix: `_`)
-- `_connectionState` — Boolean from `connection_entity` binary sensor
+- `_connectionState` — Boolean from `connection_entity` (switch or binary sensor)
+- `_connectionToggleable` — `true` when `connection_entity` is a `switch.`; a binary sensor makes the header display-only
 - `_searchState` / `_downloadState` — Sensor state objects from `hass.states`
 - `_results` — Parsed JSON attributes, capped at 10 items
 - `_searchStatus` — Current search progress string
@@ -85,7 +86,7 @@ connection_entity: switch.slskd_connection
 title: slskd   # optional
 ```
 
-All three entity fields are required. `setConfig()` throws an error if any are missing.
+All three entity fields are required. `setConfig()` throws an error if any are missing. `connection_entity` may also be `binary_sensor.slskd_connected` (for readonly API keys); the connect/disconnect toggle is then disabled.
 
 ---
 
