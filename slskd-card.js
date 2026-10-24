@@ -151,7 +151,7 @@ class SlskdCard extends LitElement {
         </svg>
         <span class="card-title">${title}</span>
         <button class="connection-btn ${connected ? "on" : "off"}"
-                title="${!toggleable ? "" : connected ? "Click to disconnect" : "Click to connect"}"
+                title="${!toggleable ? "Read-only API key" : connected ? "Click to disconnect" : "Click to connect"}"
                 ?disabled="${!toggleable}"
                 @click="${this._handleConnectionToggle}">
           <span class="connection-dot"></span>

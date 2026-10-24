@@ -52,6 +52,8 @@ If your slskd API key is `readonly`, the integration doesn't create `switch.slsk
 connection_entity: binary_sensor.slskd_connected
 ```
 
+Note that a readonly key can't search or download either, so the card's search and download actions will fail with a permission error. Use a `readwrite` key for full functionality.
+
 ## Usage
 
 1. Type a search query and click **Search** (or press Enter)
