@@ -48,8 +48,10 @@ The card is implemented as a Lit-Element Web Component registered as `custom:sls
 - `getCardSize()` — Returns `4` (HA layout hint)
 
 **Computed Getters** (prefix: `_`)
-- `_connectionState` — Boolean from `connection_entity` (switch or binary sensor)
-- `_connectionToggleable` — `true` when `connection_entity` is a `switch.`; a binary sensor makes the header display-only
+- `_connectionEntityId` — `connection_entity`, or `binary_sensor.slskd_connected` when that is missing/unavailable
+- `_connectionAvailable` — `false` when no connection entity has a usable state (header shows "Unavailable")
+- `_connectionState` — Boolean from the connection entity (switch or binary sensor)
+- `_connectionToggleable` — `true` when the connection entity is an available `switch.`; a binary sensor makes the header display-only
 - `_searchState` / `_downloadState` — Sensor state objects from `hass.states`
 - `_results` — Parsed JSON attributes, capped at 10 items
 - `_searchStatus` — Current search progress string
