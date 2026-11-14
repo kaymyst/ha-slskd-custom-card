@@ -52,6 +52,8 @@ If your slskd API key is `readonly`, the integration doesn't create `switch.slsk
 connection_entity: binary_sensor.slskd_connected
 ```
 
+If the configured `connection_entity` is missing or unavailable, the card falls back to `binary_sensor.slskd_connected` for the status, and shows **Unavailable** if neither exists.
+
 Note that a readonly key can't search or download either, so the card's search and download actions will fail with a permission error. Use a `readwrite` key for full functionality.
 
 ## Usage
